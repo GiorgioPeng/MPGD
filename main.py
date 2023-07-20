@@ -11,9 +11,7 @@ import numpy as np
 import torch
 from utils.EvalHelper import EvalHelper
 from utils.RandomDataReader import RandomDataReader
-from utils.DataReader4npz import DataReader4npz 
-from utils.Data4generation import DataReader4generation 
-from utils.Visulization import visulization
+from utils.DataReader4npz import DataReader4npz  
 import os
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:6144"
 
@@ -48,12 +46,8 @@ class RedirectStdStreams:
 def train_and_eval(datadir, datname, hyperpm):
     set_rng_seed(hyperpm.seed) 
     print(hyperpm.seed)
-    if datname == 'generation':
-        agent = EvalHelper(DataReader4generation(datname, datadir), hyperpm)
-    elif datname.endswith('.npz'):
+    if datname.endswith('.npz'):
         agent = EvalHelper(DataReader4npz(datname, datadir), hyperpm)
-    elif hyperpm.random:
-        agent = EvalHelper(RandomDataReader(datname, datadir), hyperpm)
     else:
         agent = EvalHelper(RandomDataReader(datname, datadir), hyperpm)
     tm = time.time()
@@ -72,8 +66,6 @@ def train_and_eval(datadir, datname, hyperpm):
             model_sav = tempfile.TemporaryFile()
             torch.save(agent.model.state_dict(), model_sav)
             neib_sav.copy_(agent.neib_sampler.nb_all)
-            a = (agent.get_vis_att()).cpu().detach()
-            p = (agent.get_vis_prob()).cpu().detach()
             label = agent.get_labels()
             numberOfClass = agent.get_nclass()
          
@@ -120,9 +112,8 @@ def main(args_str=None):
     parser.add_argument('--l1', type=float, default=0.9, help='l1 coeiffient')
     parser.add_argument('--lap', type=float, default=0.5, help='lap coeiffient')
     parser.add_argument('--seed', type=int, default=42, help='random seed')
-    parser.add_argument('--random', type=bool, default=False, help='whether using random split')
     parser.add_argument('--att', type=float, default=1.0, help='weight of attention loss')
-    parser.add_argument('--visulization', type=bool, default=False, help='whether visulize the result')
+    # parser.add_argument('--visulization', type=bool, default=False, help='whether visulize the result')
     parser.add_argument('--agg', type=str, default='NR', help='the aggregation method')
 
     

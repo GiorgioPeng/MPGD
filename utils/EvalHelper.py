@@ -36,7 +36,7 @@ class EvalHelper:
         self.laplacian = laplacian.float().to(dev)
         self.graph, self.feat, self.targ = graph, feat, targ
         self.trn_idx, self.val_idx, self.tst_idx = trn_idx, val_idx, tst_idx
-        self.neib_sampler = NeibSampler(graph, hyperpm.nbsz).to(dev)  # 邻域采样器
+        self.neib_sampler = NeibSampler(graph, hyperpm.nbsz).to(dev)  
 
         model = CapsuleNet(nfeat, nclass, hyperpm).to(dev) 
         optmz = optim.Adam(model.parameters(),

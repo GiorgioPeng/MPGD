@@ -43,10 +43,7 @@ class DataReader4npz:
             others = others[torch.randperm(others.size(0))]
             val_index = others[:number_val]
             test_index = others[number_val:]
-            
-            # idx_split_args = {'ntrain_per_class': 20, 'nstopping': 1000, 'nknown': 1500, 'seed': seed}
-            # idx_train, idx_val, idx_test = gen_splits(labels, idx_split_args, test=True)
-            # features = torch.tensor(features)
+             
             feat = normalize_attributes(features)
             
             trn_idx = np.array(train_index, dtype=np.int64)
@@ -57,21 +54,7 @@ class DataReader4npz:
             print('The number of test set: ', tst_idx.shape)
             
             graph = nx.from_scipy_sparse_matrix(adj)
-            
-            # # calculate the homophily ratio
-            # num_same_label = 0
-            # num_edges = nx.number_of_edges(graph)
-            # edges = nx.edges(graph)
-            # for edge in edges:
-            #     source_label = labels[edge[0]]
-            #     target_label = labels[edge[1]]
-            #     if source_label == target_label:
-            #         num_same_label += 1
-            # homophily_ratio = num_same_label / num_edges
-            # print("Homophily ratio: {:.3f}".format(homophily_ratio))
-            # exit(0)
-            
-            # print(feat.shape)
+             
             norm_laplacian = torch.tensor(nx.normalized_laplacian_matrix(graph).todense())
             # Storing the data...
             self.trn_idx, self.val_idx, self.tst_idx = trn_idx, val_idx, tst_idx
@@ -109,10 +92,7 @@ class DataReader4npz:
             others = others[torch.randperm(others.size(0))]
             val_index = others[:number_val]
             test_index = others[number_val:]
-            
-            # idx_split_args = {'ntrain_per_class': 20, 'nstopping': 1000, 'nknown': 1500, 'seed': seed}
-            # idx_train, idx_val, idx_test = gen_splits(labels, idx_split_args, test=True)
-            # features = torch.tensor(features)
+             
             
             trn_idx = np.array(train_index, dtype=np.int64)
             val_idx = np.array(val_index, dtype=np.int64)
@@ -164,8 +144,7 @@ class DataReader4npz:
             print('#instance x #feature ~ #class = %d x %d ~ %d' % (n, d, c))
 
             number_train = math.ceil(0.05*n)
-            number_val = math.ceil(0.05*n)
-            # number_test = math.ceil(0.9*wholex.shape[0])
+            number_val = math.ceil(0.05*n) 
             per_number_train = math.ceil(number_train/num_classes)-1
             
             indices = []
@@ -179,10 +158,7 @@ class DataReader4npz:
             others = others[torch.randperm(others.size(0))]
             val_index = others[:number_val]
             test_index = others[number_val:]
-            
-            # train_index = torch.cat([i[:20] for i in indices], dim=0)
-            # val_index = torch.cat([i[20:50] for i in indices], dim=0)
-            # tst_index = torch.cat([i[50:] for i in indices], dim=0)
+             
 
             trn_idx = np.array(train_index, dtype=np.int64)
             val_idx = np.array(val_index, dtype=np.int64)
@@ -191,21 +167,8 @@ class DataReader4npz:
             print('The number of val set: ', val_idx.shape)
             print('The number of test set: ', tst_idx.shape)
             
-            graph = nx.from_scipy_sparse_matrix(adj_matrix)
-            # num_same_label = 0
-            # num_edges = nx.number_of_edges(graph)
-            # edges = nx.edges(graph)
-            # for edge in edges:
-            #     source_label = labels[edge[0]]
-            #     target_label = labels[edge[1]]
-            #     if source_label == target_label:
-            #         num_same_label += 1
-            # homophily_ratio = num_same_label / num_edges
-            # print("Homophily ratio: {:.3f}".format(homophily_ratio))
-            # exit(0)
-            
-            feat = normalize_attributes(feat)
-            # print(feat.shape)
+            graph = nx.from_scipy_sparse_matrix(adj_matrix) 
+            feat = normalize_attributes(feat) 
             norm_laplacian = torch.tensor(nx.normalized_laplacian_matrix(graph).todense())
             # Storing the data...
             self.trn_idx, self.val_idx, self.tst_idx = trn_idx, val_idx, tst_idx
