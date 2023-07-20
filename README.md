@@ -1,4 +1,4 @@
-# MPGD
+# `M`ixed `P`robabilistic Generation Model induced `G`raph `D`isentanglement (MPGD)
 
 # Installation
 
