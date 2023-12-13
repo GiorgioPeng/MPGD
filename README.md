@@ -33,4 +33,4 @@ conda activate env_name
 - Run the command in `./example_sh/example.sh`
 
 # Data
-The `./data/` folder includes both standard benchmarks (Cora, Citeseer, Pubmed, Amazon Photo, Chameleon, Squirrel and Crocodile).
+The `./data/` folder includes all standard benchmarks (Cora, Citeseer, Pubmed, Amazon Photo, Chameleon, Squirrel and Crocodile).
