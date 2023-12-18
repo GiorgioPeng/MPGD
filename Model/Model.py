@@ -17,7 +17,7 @@ class CapsuleNet(nn.Module):
         super(CapsuleNet, self).__init__()
         numberOfCapsule, representationDimension = hyperpm.ncaps, hyperpm.nhidden * hyperpm.ncaps   
         self.pca = SparseInputLinear(featureDimension, representationDimension)  
-        convolutionList = []  
+        convolutionList = nn.ModuleList()  
         for i in range(hyperpm.nlayer):   
             if hyperpm.agg == 'MLP':
                 conv = MLPLayer(representationDimension, numberOfCapsule)

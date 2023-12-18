@@ -37,7 +37,7 @@ class MLPLayer(nn.Module):
         super(MLPLayer, self).__init__()
         self.d, self.k = dim, num_caps  
         self.delta_d = int(dim/num_caps)
-        mlp_list = []
+        mlp_list = nn.ModuleList()
         for i in range(num_caps):
             mlp_list.append(Linear(self.delta_d, self.delta_d, dropout, bias=True))
         self.mlp_list = mlp_list
@@ -91,7 +91,7 @@ class GCNLayer(nn.Module):
         super(GCNLayer, self).__init__()
         self.d, self.k = dim, num_caps  
         self.delta_d = int(dim/num_caps)
-        gcn_list = []
+        gcn_list = nn.ModuleList()
         for i in range(num_caps):
             gcn_list.append(Linear(self.delta_d, self.delta_d, dropout, bias=True))
         self.gcn_list = gcn_list
